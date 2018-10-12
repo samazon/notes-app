@@ -3,22 +3,25 @@ console.log('Starting app.js');
 const fs = require('fs');
 const os = require('os');
 const _ = require('lodash');
+const yargs = require('yargs');
 
 const notes = require('./notes.js');
 
-// console.log(process.argv[2]);
-var command = process.argv[2]
+var argv = yargs.argv;
+// console.log('yargs', argv)
+// var command =  process.argv[2] //Old Way
+var command = argv._[0];
 
 if(command === 'add') {
-  console.log('ADDING LOOP CALLED!')
+	notes.addNote(argv.title, argv.body);
 } else if(command === 'list') {
-  console.log('READING ALL NOTES!')
+	notes.getList();
 } else if(command === 'read') {
-  console.log('READ A SINGLE NOTE!')
+	notes.getNote(argv.title);
 } else if(command === 'remove') {
-  console.log('REMOVING NOTES!')
+	notes.removeNote(argv.title);
 } else {
-  console.log('COMMAND NOT RECOGNIZED!')
+  console.log('command not recognized!')
 } 
 
 // const users = [
